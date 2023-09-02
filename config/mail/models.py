@@ -3,7 +3,7 @@ from django.db import models
 NULLABLE = {'blank': True, 'null': True}
 
 
-class ClientService(models.Model):
+class Client(models.Model):
     contact_email = models.CharField(max_length=100, verbose_name='контактная почта')
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
     comment = models.TextField(verbose_name='ФИО', **NULLABLE)
