@@ -26,4 +26,5 @@ app_name = MailConfig.name
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mail.urls', namespace='mail')),
+    path('message/')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
