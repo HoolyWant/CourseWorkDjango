@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView
 
-from config.mail.models import MessagesForDistribution, MailDistributionSettings, Logs, Client
+from mail.models import MessagesForDistribution, MailDistributionSettings, Logs, Client
 
 
 class MessagesList(ListView):  # просмотр списка рассылок

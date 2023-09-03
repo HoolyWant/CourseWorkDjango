@@ -86,7 +86,7 @@ class Logs(models.Model):
     class Meta:
         verbose_name = 'лог'
         verbose_name_plural = 'логи'
-
-
-
-
+#
+#
+#
+#

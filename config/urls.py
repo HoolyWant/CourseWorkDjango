@@ -19,12 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from config.mail.apps import MailConfig
+from mail.apps import MailConfig
 
 app_name = MailConfig.name
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mail.urls', namespace='mail')),
-    path('message/')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

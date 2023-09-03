@@ -2,13 +2,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
-from config.mail.apps import MailConfig
-from config.mail.views import MessagesList, MessageDetail, MessageCreate, ClientCreate, ClientsList, ClientDetail
+from mail.apps import MailConfig
+from mail.views import MessagesList, MessageDetail, MessageCreate, ClientCreate, ClientsList, ClientDetail
 
 app_name = MailConfig.name
 
 urlpatterns = [
-    path(''),
     path('/messages', MessagesList.as_view(), name='messages_list'),
     path('/messages/<int:pk>', MessageDetail.as_view(), name='messages_view'),
     path('/messages/create', MessageCreate.as_view(), name='message_create'),
