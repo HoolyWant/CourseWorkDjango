@@ -65,12 +65,23 @@ class MessagesForDistribution(models.Model):
 
 
 class Logs(models.Model):
-    last_attempt = models.DateTimeField(verbose_name='время последней попытки')
-    attempt_status = models.BooleanField(default=False, verbose_name='статус попытки')
-    mail_response = models.BooleanField(default=False, verbose_name='ответ почтового сервиса')
+    STATUS_OK = 'Ok'
+    STATUS_FAILED = 'Failed'
+    STATUSES = (
+        (STATUS_OK, 'Успешно'),
+        (STATUS_FAILED, 'Ошибка')
+    )
+    last_attempt = models.DateTimeField(auto_now_add='True', verbose_name='время последней попытки')
+    attempt_status = models.BooleanField(choices=STATUSES, default=STATUS_OK, verbose_name='статус попытки')
+    client = models.ForeignKey('Client', on_delete=models.CASCADE,
+                               verbose_name='Клиент',
+                               **NULLABLE)
+    setting = models.ForeignKey('MailDistributionSettings', on_delete=models.CASCADE,
+                                verbose_name='Настройки',
+                                **NULLABLE)
 
     def __str__(self):
-        return f'{self.attempt_status}/ {self.mail_response}'
+        return f'{self.attempt_status}\n{self.last_attempt}'
 
     class Meta:
         verbose_name = 'лог'
