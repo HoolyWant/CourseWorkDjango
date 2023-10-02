@@ -1,0 +1,13 @@
+{% extends 'mail/base.html'%}
+
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_list" %}'>Рассылки</a>
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:messages_list" %}'>Текст для рассылок</a>
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:clients_list" %}'>Клиенты</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

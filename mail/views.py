@@ -1,3 +1,5 @@
+from django.forms import inlineformset_factory
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from mail.forms import MessagesForm, MaillingForm, ClientForm
@@ -20,10 +22,18 @@ class MessageEdit(UpdateView):
     success_url = reverse_lazy('mail:messages_list')
 
 
+class MessageDetail(DetailView):
+    model = MessagesForDistribution
+
+
 class MaillingCreate(CreateView):
     model = MailDistributionSettings
     form_class = MaillingForm
     success_url = reverse_lazy('mail:mailling_list')
+
+
+class MaillingDetail(DetailView):
+    model = MailDistributionSettings
 
 
 class MaillingList(ListView):  # просмотр списка рассылок
@@ -54,4 +64,9 @@ class ClientsList(ListView):  # просмотр списка клиентов
 
 class LogDetail(DetailView):  # просмотр логов
     model = Logs
+
+
+def home(request):
+    return render(request, 'mail/home.html')
+
 
