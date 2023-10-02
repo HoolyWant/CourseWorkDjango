@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView
-
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from mail.forms import MessagesForm, MaillingForm, ClientForm
 from mail.models import MessagesForDistribution, MailDistributionSettings, Logs, Client
 
 
@@ -9,26 +8,44 @@ class MessagesList(ListView):  # просмотр списка рассылок
     model = MessagesForDistribution
 
 
-class MessageDetail(DetailView):  # просмотр рассылки
+class MessageCreate(CreateView):
     model = MessagesForDistribution
-
-
-class MessageCreate(CreateView):  # создания рассылки с настройками
-    model = MailDistributionSettings
-    fields = ('message_theme', 'message_body',
-              'date_start', 'date_finish',
-              'period')
+    form_class = MessagesForm
     success_url = reverse_lazy('mail:messages_list')
 
 
-class ClientCreate(CreateView):  # созданиt клиента
-    model = Client
-    fields = ('full_name', 'contact_email', 'comment')
-    success_url = reverse_lazy('mail:list')
+class MessageEdit(UpdateView):
+    model = MessagesForDistribution
+    form_class = MessagesForm
+    success_url = reverse_lazy('mail:messages_list')
 
 
-class ClientDetail(DetailView):  # просмотра клиента
+class MaillingCreate(CreateView):
+    model = MailDistributionSettings
+    form_class = MaillingForm
+    success_url = reverse_lazy('mail:mailling_list')
+
+
+class MaillingList(ListView):  # просмотр списка рассылок
+    model = MailDistributionSettings
+
+
+class MaillingEdit(UpdateView):
+    model = MailDistributionSettings
+    form_class = MaillingForm
+    success_url = reverse_lazy('mail:mailling_list')
+
+
+class ClientCreate(CreateView):  # создание клиента
     model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mail:clients_list')
+
+
+class ClientEdit(UpdateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mail:clients_list')
 
 
 class ClientsList(ListView):  # просмотр списка клиентов
@@ -37,3 +54,4 @@ class ClientsList(ListView):  # просмотр списка клиентов
 
 class LogDetail(DetailView):  # просмотр логов
     model = Logs
+

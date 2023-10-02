@@ -41,7 +41,7 @@ class MailDistributionSettings(models.Model):
                                            verbose_name='статус')
     message = models.ForeignKey('MessagesForDistribution',
                                 on_delete=models.CASCADE,
-                                verbose_name='сообшение',
+                                verbose_name='сообщение',
                                 **NULLABLE)
 
     def __str__(self):
