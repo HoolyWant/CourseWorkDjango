@@ -15,15 +15,6 @@
                                     {% endif %}
                                     {% csrf_token %}
                                     {{ form.as_p }}
-                                    {% if object %}
-                                    <div class="col-12 mb-5">
-                                     <h1> Настройка рассылки</h1>
-                                     {% csrf_token %}
-                                     {{ formset.management_form }}
-                                     {% for form in formset.forms %}
-                                         {{ form.as_p}}
-                                     {% endfor %}
-                                    {% endif %}
                                     <button type="submit" style="btn btn-primary">
                                         {% if object %}
                                             Сохранить

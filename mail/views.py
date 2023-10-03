@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -30,6 +32,14 @@ class MaillingCreate(CreateView):
     model = MailDistributionSettings
     form_class = MaillingForm
     success_url = reverse_lazy('mail:mailling_list')
+
+    def form_valid(self, form):
+        if form.instance.date_start <= datetime.now() <= form.instance.date_finish:
+            message_id = form.instance.message_id
+            message = MessagesForDistribution.objects.get(pk=message_id)
+            clients_list = Client.objects.all()
+            mail_seller(clients_list, message)
+
 
 
 class MaillingDetail(DetailView):
