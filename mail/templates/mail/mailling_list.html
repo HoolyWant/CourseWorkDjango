@@ -13,16 +13,19 @@
             </div>
             <div class="row text-center">
                 {% for object in object_list %}
-                <div class="col-3">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
-                            <h4 class="card-title pricing-card-title">{{ object.message }}</h4>
-                                <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_detail" object.id %}'>Инфо</a>
-                                <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_edit" object.id %}'>Изменить</a>
-                                <a class="p-2 btn btn-outline-danger" href=''>Удалить</a>
+                    {% if object.user_id == user.id %}
+                        <div class="col-3">
+                            <div class="card mb-4 box-shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title pricing-card-title">{{ object.message }}</h4>
+                                        <p class="lead">{{ object.distribution_status }}</p>
+                                        <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_detail" object.id %}'>Инфо</a>
+                                        <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_edit" object.id %}'>Изменить</a>
+                                        <a class="p-2 btn btn-outline-danger" href='{% url "mail:mailling_delete" object.id %}'>Удалить</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

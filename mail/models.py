@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -7,6 +9,7 @@ class Client(models.Model):
     contact_email = models.CharField(max_length=100, verbose_name='контактная почта')
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', **NULLABLE)
 
     def __str__(self):
         return f'{self.full_name}({self.contact_email})'
@@ -32,8 +35,8 @@ class MailDistributionSettings(models.Model):
     STATUSES = ((STATUS_CREATED, 'Запущена'),
                 (STATUS_STARTED, 'Создана'),
                 (STATUS_DONE, 'Завершена'))
-    date_start = models.DateTimeField(verbose_name='время начала рассылки')
-    date_finish = models.DateTimeField(verbose_name='время окончания рассылки')
+    date_start = models.TimeField(verbose_name='время начала рассылки')
+    date_finish = models.TimeField(verbose_name='время окончания рассылки')
     period = models.CharField(max_length=20, choices=PERIODS, default=PERIOD_DAILY, verbose_name='период')
     distribution_status = models.CharField(max_length=20,
                                            choices=STATUSES,
@@ -43,9 +46,11 @@ class MailDistributionSettings(models.Model):
                                 on_delete=models.CASCADE,
                                 verbose_name='сообщение',
                                 **NULLABLE)
+    clients = models.ManyToManyField(Client, verbose_name='клиент')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE, verbose_name='пользователь')
 
     def __str__(self):
-        return f'{self.period} {self.distribution_status}'
+        return f'{self.clients}'
 
     class Meta:
         verbose_name = 'настройка рассылки'
@@ -55,6 +60,7 @@ class MailDistributionSettings(models.Model):
 class MessagesForDistribution(models.Model):
     message_theme = models.CharField(max_length=100, verbose_name='тема письма')
     message_body = models.TextField(verbose_name='текст письма')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE, verbose_name='пользователь')
 
     def __str__(self):
         return self.message_theme

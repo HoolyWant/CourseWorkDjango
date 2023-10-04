@@ -4,7 +4,8 @@ from django.urls import path, include
 
 from mail.apps import MailConfig
 from mail.views import MessagesList, MessageCreate, ClientCreate, ClientsList, \
-    MaillingCreate, MaillingList, MaillingEdit, ClientEdit, MessageEdit, LogDetail, home, MessageDetail, MaillingDetail
+    MaillingCreate, MaillingList, MaillingEdit, ClientEdit, MessageEdit, home, MessageDetail, MaillingDetail, \
+    MaillingDelete, LogsList
 
 app_name = MailConfig.name
 
@@ -21,5 +22,6 @@ urlpatterns = [
     path('mailling/edit/<int:pk>', MaillingEdit.as_view(template_name='mail/mailling_form.html'), name='mailling_edit'),
     path('mailling/<int:pk>', MaillingDetail.as_view(template_name='mail/mailling_detail.html'), name='mailling_detail'),
     path('mailling/', MaillingList.as_view(template_name='mail/mailling_list.html'), name='mailling_list'),
-    path('logs/', LogDetail.as_view(template_name='mail/log_form.html'), name='logs'),
+    path('mailling/delete/<int:pk>', MaillingDelete.as_view(template_name='mail/mailling_confirm_delete.html'), name='mailling_delete'),
+    path('logs/', LogsList.as_view(template_name='mail/logs_list.html'), name='logs'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

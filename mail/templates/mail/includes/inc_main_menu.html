@@ -5,8 +5,11 @@
          <a class="p-2 btn btn-outline-primary" href="/.../">Блог</a>
     </nav>
     <nav class="ms-5">
-            <a class="p-2 btn btn-outline-primary" href="/users/logout">Выйти</a>
-            <a class="p-2 btn btn-outline-primary" href="/users/login">Войти</a>
-            <a class="p-2 btn btn-outline-primary" href="/users/">Зарегистрироваться</a>
+            {% if user.is_authenticated %}
+            <a class="p-2 btn btn-outline-primary" href="/accounts/logout">Выйти</a>
+            {% else %}
+            <a class="p-2 btn btn-outline-primary" href="/accounts/login">Войти</a>
+            <a class="p-2 btn btn-outline-primary" href="/accounts/">Зарегистрироваться</a>
+            {% endif %}
     </nav>
 </div>

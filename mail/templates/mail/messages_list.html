@@ -13,6 +13,7 @@
             </div>
             <div class="row text-center">
                 {% for object in object_list %}
+                {% if object.user_id == user.id %}
                 <div class="col-3">
                     <div class="card mb-4 box-shadow">
                         <div class="card-body">
@@ -23,6 +24,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

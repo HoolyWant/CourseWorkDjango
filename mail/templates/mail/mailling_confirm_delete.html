@@ -1,4 +1,4 @@
-{% extends 'shop/base.html'%}
+{% extends 'mail/base.html'%}
 
 {% block content %}
 <div class="container">
@@ -10,7 +10,7 @@
                         {% csrf_token %}
                         <h1>Вы действительно хотите удалить рассылку "{{ object.message }}"?</h1>
                         <button type="submit" class="btn btn-danger">Подтвердить</button>
-                        <a href="{% url 'shop:product_list' %}" class="btn btn-warning">Отмена</a>
+                        <a href="{% url 'mail:mailling_list' %}" class="btn btn-warning">Отмена</a>
                     </form>
                 </div>
             </div>

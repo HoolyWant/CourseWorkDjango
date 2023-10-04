@@ -14,16 +14,21 @@ class MessagesForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = MessagesForDistribution
-        fields = '__all__'
+        exclude = ('user', )
 
 
 class ClientForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Client
-        fields = '__all__'
+        exclude = ('user', )
 
 
-class MaillingForm(StyleFormMixin, forms.ModelForm):
+class MaillingForm(forms.ModelForm):
     class Meta:
         model = MailDistributionSettings
-        fields = '__all__'
+        exclude = ('distribution_status', 'user', )
+
+        widgets = {
+            'date_start': forms.TimeInput(attrs={'type': 'time'}),
+            'date_finish': forms.TimeInput(attrs={'type': 'time'}),
+        }
