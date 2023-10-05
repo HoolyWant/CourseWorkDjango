@@ -47,18 +47,6 @@ class MaillingCreate(LoginRequiredMixin, CreateView):
         self.object.save()
         return super().form_valid(form)
 
-    # def form_valid(self, form):
-    #     date_start = datetime.strptime(str(form.instance.date_start)[:4], '%H:%M')
-    #     date_finish = datetime.strptime(str(form.instance.date_finish)[:4], '%H:%M')
-    #     time_now = datetime.strptime(datetime.now().strftime('%H:%M'), '%H:%M')
-    #     if date_start <= time_now <= date_finish:
-    #             client_id = form.instance.client_id
-    #             client = Client.objects.get(pk=client_id)
-    #             message_id = MailDistributionSettings.objects.get('message_id')
-    #             message = MessagesForDistribution.objects.get(pk=message_id).__dict__
-    #             mail_seller(client, message)
-    #     return super().form_valid(form)
-
 
 class MaillingDetail(DetailView):
     model = MailDistributionSettings
@@ -77,6 +65,17 @@ class MaillingEdit(UpdateView):
     model = MailDistributionSettings
     form_class = MaillingForm
     success_url = reverse_lazy('mail:mailling_list')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.request.user.is_staff:
+            mailing_settings = self.object
+            if mailing_settings.user != self.request.user:
+                mailing_settings.status = form.cleaned_data['status']
+
+        self.object.save()
+
+        return super().form_valid(form)
 
 
 class ClientCreate(LoginRequiredMixin, CreateView):  # создание клиента
