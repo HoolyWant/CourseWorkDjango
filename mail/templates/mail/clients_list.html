@@ -3,13 +3,13 @@
 {% block content %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">LehaMailling</h1>
-    <p class="lead">Письма для рассылок</p>
+    <p class="lead">Ваши клиенты</p>
 </div>
 
 <div class="col-12">
         <div class="container">
             <div class="col-3 mb-5">
-                <a class="p-2 btn btn-primary" href='{% url "mail:message_create" %}'>Добавить письмо</a>
+                <a class="p-2 btn btn-primary" href='{% url "mail:client_create" %}'>Добавить клиента</a>
             </div>
             <div class="row text-center">
                 {% for object in object_list %}
@@ -17,10 +17,11 @@
                 <div class="col-3">
                     <div class="card mb-4 box-shadow">
                         <div class="card-body">
-                            <h4 class="card-title pricing-card-title">{{ object }}</h4>
-                                <a class="p-2 btn btn-outline-primary" href='{% url "mail:message_view" object.id %}'>Инфо</a>
-                                <a class="p-2 btn btn-outline-primary" href='{% url "mail:message_edit" object.id %}'>Изменить</a>
-                                <a class="p-2 btn btn-outline-danger" href='{% url "mail:message_delete_confirm" object.id %}'>Удалить</a>
+                            <h4 class="card-title pricing-card-title">{{ object.full_name }}</h4>
+                                <li> {{ object.comment }}</li>
+                                <li> {{ object.contact_email }} </li>
+                                <a class="p-2 btn btn-outline-primary" href='{% url "mail:client_edit" object.id %}'>Изменить</a>
+                                <a class="p-2 btn btn-outline-danger" href='{% url "mail:client_delete_confirm" object.id %}'>Удалить</a>
                         </div>
                     </div>
                 </div>

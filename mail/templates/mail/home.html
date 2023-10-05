@@ -1,0 +1,23 @@
+{% extends 'mail/base.html'%}
+
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_list" %}'>Рассылки</a>
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:messages_list" %}'>Текст для рассылок</a>
+            <a class="p-2 btn btn-outline-primary" href='{% url "mail:clients_list" %}'>Клиенты</a>
+        </div>
+        <div class="col-12">
+            <h4>Количество рассылок: {{ mailling_count }}</h4>
+                <h4> Количество активных рассылок: {{ active_mailling_count }}</h4>
+                <h4> Количество уникальных клиентов: {{ unic_clients }}</h4>
+                {% for blog in blogs %}
+                <h4 class="card-title pricing-card-title">{{ blog.title }}</h4>
+                <p class="lead">{{ blog.content }}</p>
+                <a class="p-2 btn btn-outline-primary" href='{% url "blog:blog_detail" blog.id %}'>Инфо</a>
+                {% endfor %}
+            </div>
+    </div>
+</div>
+{% endblock %}

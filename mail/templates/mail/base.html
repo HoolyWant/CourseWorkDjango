@@ -1,10 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LehaMailling</title>
+    <link href="/static/mail/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+{% include 'mail/includes/inc_main_menu.html' %}
+{% block content %}
+{% endblock %}
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                LehaMailling
+                <small class="d-block mb-3 text-muted">&copy; 2023</small>
+            </div>
+        </div>
+    </footer>
+</div>
 
+<script src="/static/mail/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
