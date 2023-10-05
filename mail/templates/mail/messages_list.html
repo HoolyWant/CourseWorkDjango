@@ -20,7 +20,7 @@
                             <h4 class="card-title pricing-card-title">{{ object }}</h4>
                                 <a class="p-2 btn btn-outline-primary" href='{% url "mail:message_view" object.id %}'>Инфо</a>
                                 <a class="p-2 btn btn-outline-primary" href='{% url "mail:message_edit" object.id %}'>Изменить</a>
-                                <a class="p-2 btn btn-outline-danger" href=''>Удалить</a>
+                                <a class="p-2 btn btn-outline-danger" href='{% url "mail:message_delete_confirm" object.id %}'>Удалить</a>
                         </div>
                     </div>
                 </div>

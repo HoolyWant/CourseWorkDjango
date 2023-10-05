@@ -3,7 +3,6 @@ from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from blog.models import Blog
-from mail.services.send_mail import mail_seller
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -22,7 +21,7 @@ class MessageCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        self.object.user = self.request.user
+        self.object.user_id = self.request.user
         self.object.save()
         return super().form_valid(form)
 
@@ -44,7 +43,7 @@ class MaillingCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('mail:mailling_list')
     def form_valid(self, form):
         self.object = form.save()
-        self.object.user = self.request.user
+        self.object.user_id = self.request.user
         self.object.save()
         return super().form_valid(form)
 
@@ -86,7 +85,7 @@ class ClientCreate(LoginRequiredMixin, CreateView):  # создание клие
     success_url = reverse_lazy('mail:clients_list')
     def form_valid(self, form):
         self.object = form.save()
-        self.object.user = self.request.user
+        self.object.user_id = self.request.user
         self.object.save()
         return super().form_valid(form)
 
@@ -117,3 +116,13 @@ def home(request):
         'blogs': blogs,
     }
     return render(request, 'mail/home.html', context)
+
+
+class ClientDelete(LoginRequiredMixin, DeleteView):
+    model = Client
+    success_url = reverse_lazy('mail:clients_list')
+
+
+class MessageDelete(LoginRequiredMixin, DeleteView):
+    model = MessagesForDistribution
+    success_url = reverse_lazy('mail:messages_list')

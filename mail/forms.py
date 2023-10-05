@@ -26,7 +26,7 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 class MaillingForm(forms.ModelForm):
     class Meta:
         model = MailDistributionSettings
-        exclude = ('distribution_status', 'user', )
+        exclude = ('user', )
 
         widgets = {
             'date_start': forms.TimeInput(attrs={'type': 'time'}),

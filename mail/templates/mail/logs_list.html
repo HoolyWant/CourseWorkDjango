@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'mail/base.html'%}
 
-</body>
-</html>
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">LehaMailling</h1>
+    <p class="lead">Рассылки</p>
+</div>
+
+<div class="col-12">
+        <div class="container">
+            <h1> Логи </h1>
+            <div class="row text-center">
+                {% for object in object_list %}
+                    {% if object.user_id == user.id %}
+                        <div class="col-3">
+                            <div class="card mb-4 box-shadow">
+                                <div class="card-body">
+                                        <p class="lead">{{ object.last_attempt }}</p>
+                                        <p class="lead">{{ object.attempt_status }}</p>
+                                        <p class="lead">{{ object.client }}</p>
+                                        <p class="lead">{{ object.setting }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

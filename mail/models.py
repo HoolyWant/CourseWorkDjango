@@ -12,7 +12,7 @@ class Client(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', **NULLABLE)
 
     def __str__(self):
-        return f'{self.full_name}({self.contact_email})'
+        return f'{self.contact_email}'
 
     class Meta:
         verbose_name = 'клиент сервис'
@@ -32,11 +32,10 @@ class MailDistributionSettings(models.Model):
     STATUS_STARTED = 'started'
     STATUS_DONE = 'done'
 
-    STATUSES = ((STATUS_CREATED, 'Запущена'),
-                (STATUS_STARTED, 'Создана'),
+    STATUSES = ((STATUS_CREATED, 'Создана'),
+                (STATUS_STARTED, 'Запущена'),
                 (STATUS_DONE, 'Завершена'))
     date_start = models.TimeField(verbose_name='время начала рассылки')
-    date_finish = models.TimeField(verbose_name='время окончания рассылки')
     period = models.CharField(max_length=20, choices=PERIODS, default=PERIOD_DAILY, verbose_name='период')
     distribution_status = models.CharField(max_length=20,
                                            choices=STATUSES,
@@ -78,13 +77,14 @@ class Logs(models.Model):
         (STATUS_FAILED, 'Ошибка')
     )
     last_attempt = models.DateTimeField(auto_now_add='True', verbose_name='время последней попытки')
-    attempt_status = models.BooleanField(choices=STATUSES, default=STATUS_OK, verbose_name='статус попытки')
+    attempt_status = models.CharField(max_length=8, choices=STATUSES, default=STATUS_OK, verbose_name='статус попытки')
     client = models.ForeignKey('Client', on_delete=models.CASCADE,
                                verbose_name='Клиент',
                                **NULLABLE)
     setting = models.ForeignKey('MailDistributionSettings', on_delete=models.CASCADE,
                                 verbose_name='Настройки',
                                 **NULLABLE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE, verbose_name='пользователь')
 
     def __str__(self):
         return f'{self.attempt_status}\n{self.last_attempt}'

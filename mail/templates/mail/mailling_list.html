@@ -10,6 +10,7 @@
         <div class="container">
             <div class="col-3 mb-5">
                 <a class="p-2 btn btn-primary" href='{% url "mail:mailling_create" %}'>Создать рассылку</a>
+                <a class="p-2 btn btn-primary" href='{% url "mail:logs_list" %}'>Посмотреть логи</a>
             </div>
             <div class="row text-center">
                 {% for object in object_list %}
