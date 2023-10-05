@@ -7,5 +7,5 @@ from blog.apps import BlogConfig
 app_name = BlogConfig.name
 
 urlpatterns = [
-    path('', blog, name='blog'),
+    # path('', ..., name='blog'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
