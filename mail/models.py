@@ -50,7 +50,7 @@ class MailDistributionSettings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE, verbose_name='пользователь')
 
     def __str__(self):
-        return f'{self.clients}'
+        return f'{self.message}({self.period})'
 
     class Meta:
         verbose_name = 'настройка рассылки'

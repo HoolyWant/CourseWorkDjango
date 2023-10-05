@@ -6,12 +6,13 @@
         <div class="col-12">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ blog.title }}</h4>
+                    <h2 class="my-0 font-weight-normal">{{ blog.title }}</h2>
                 </div>
                 <div class="card-body">
-                    <p>{{ blog.content }}</p>
-
-                    <a class="p-2 btn btn-outline-primary" href='{% url "mail:messages_list" %}'>Назад</a>
+                    <p>Статья: {{ blog.content }}</p>
+                    <p>Просмотров: {{ blog.count }}</p>
+                    <p>Автор: {{ blog.user }}</p>
+                    <a class="p-2 btn btn-outline-primary" href='{% url "blog:blog_list" %}'>Назад</a>
                 </div>
             </div>
         </div>

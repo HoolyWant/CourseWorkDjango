@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from blog.models import Blog
 from mail.services.send_mail import mail_seller
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -105,4 +106,14 @@ class LogsList(LoginRequiredMixin, ListView):  # просмотр логов
 
 
 def home(request):
-    return render(request, 'mail/home.html')
+    mailling_count = MailDistributionSettings.objects.count()
+    active_mailling_count = MailDistributionSettings.objects.filter(distribution_status='started').count()
+    unic_clients = MailDistributionSettings.objects.distinct().count()
+    blogs = Blog.objects.order_by('?')[:3]
+    context = {
+        'mailling_count': mailling_count,
+        'active_mailling_count': active_mailling_count,
+        'unic_clients': unic_clients,
+        'blogs': blogs,
+    }
+    return render(request, 'mail/home.html', context)
