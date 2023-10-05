@@ -1,0 +1,23 @@
+{% extends 'mail/base.html'%}
+
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ maildistributionsettings.message }}</h4>
+                </div>
+                <div class="card-body">
+                    <li>{{ maildistributionsettings.message_body }}</li>
+                    <li>{{ maildistributionsettings.date_start }}</li>
+                    <li>{{ maildistributionsettings.date_finish }}</li>
+                    <li>{{ maildistributionsettings.period }}</li>
+                    <li>{{ maildistributionsettings.distribution_status }}</li>
+                    <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_list" %}'>Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
