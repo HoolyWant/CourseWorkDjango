@@ -21,7 +21,7 @@
                                 <li> {{ object.comment }}</li>
                                 <li> {{ object.contact_email }} </li>
                                 <a class="p-2 btn btn-outline-primary" href='{% url "mail:client_edit" object.id %}'>Изменить</a>
-                                <a class="p-2 btn btn-outline-danger" href='{% url "mail:client_delete_confirm" object.id %}'>Удалить</a>
+                                <a class="p-2 btn btn-outline-danger" href='{% url "mail:client_confirm_delete" object.id %}'>Удалить</a>
                         </div>
                     </div>
                 </div>

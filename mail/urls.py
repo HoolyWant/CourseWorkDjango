@@ -19,7 +19,7 @@ urlpatterns = [
     path('messages/delete/<int:pk>', MessageDelete.as_view(template_name='mail/message_delete_confirm.html'), name='message_delete_confirm'),
     path('clients/', ClientsList.as_view(template_name='mail/clients_list.html'), name='clients_list'),
     path('clients/<int:pk>', ClientEdit.as_view(template_name='mail/client_form.html'), name='client_edit'),
-    path('clients/delete/<int:pk>', ClientDelete.as_view(template_name='mail/client_confirm_delete.html'), name='client_confirm_delete'),
+    path('clients/delete/<int:pk>', ClientDelete.as_view(template_name='mail/clent_delete_confirm.html'), name='client_confirm_delete'),
     path('clients/create', ClientCreate.as_view(template_name='mail/client_form.html'), name='client_create'),
     path('mailling/create', MaillingCreate.as_view(template_name='mail/mailling_form.html'), name='mailling_create'),
     path('mailling/edit/<int:pk>', MaillingEdit.as_view(template_name='mail/mailling_form.html'), name='mailling_edit'),
