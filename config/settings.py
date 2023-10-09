@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'CourseWork',
         'HOST': 'localhost',
         'USER': 'postgres',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PASSWORD': 'qwerty',
     }
 }
 

@@ -6,7 +6,7 @@ from django.views.decorators.cache import cache_page
 from mail.apps import MailConfig
 from mail.views import MessagesList, MessageCreate, ClientCreate, ClientsList, \
     MaillingCreate, MaillingList, MaillingEdit, ClientEdit, MessageEdit, home, MessageDetail, MaillingDetail, \
-    MaillingDelete, LogsList, MessageDelete, ClientDelete
+    MaillingDelete, LogsList, MessageDelete, ClientDelete, users, UserUpdateView
 
 app_name = MailConfig.name
 
@@ -27,4 +27,6 @@ urlpatterns = [
     path('mailling/', MaillingList.as_view(template_name='mail/mailling_list.html'), name='mailling_list'),
     path('mailling/delete/<int:pk>', MaillingDelete.as_view(template_name='mail/mailling_confirm_delete.html'), name='mailling_delete'),
     path('logs/', cache_page(60)(LogsList.as_view(template_name='mail/logs_list.html')), name='logs_list'),
+    path('users/', users, name='user_list'),
+    path('users/update/<int:pk>/', UserUpdateView.as_view(), name='user_update'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

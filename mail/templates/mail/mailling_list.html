@@ -9,7 +9,9 @@
 <div class="col-12">
         <div class="container">
             <div class="col-3 mb-5">
+                {% if not user.is_staff %}
                 <a class="p-2 btn btn-primary" href='{% url "mail:mailling_create" %}'>Создать рассылку</a>
+                {% endif %}
                 <a class="p-2 btn btn-primary" href='{% url "mail:logs_list" %}'>Посмотреть логи</a>
             </div>
             <div class="row text-center">
@@ -21,8 +23,10 @@
                                     <h4 class="card-title pricing-card-title">{{ object.message }}</h4>
                                         <p class="lead">{{ object.distribution_status }}</p>
                                         <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_detail" object.id %}'>Инфо</a>
+                                        {% if not user.is_staff %}
                                         <a class="p-2 btn btn-outline-primary" href='{% url "mail:mailling_edit" object.id %}'>Изменить</a>
                                         <a class="p-2 btn btn-outline-danger" href='{% url "mail:mailling_delete" object.id %}'>Удалить</a>
+                                        {% endif %}
                                 </div>
                             </div>
                         </div>

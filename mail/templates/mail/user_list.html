@@ -1,0 +1,28 @@
+{% extends 'mail/base.html'%}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">LehaMailling</h1>
+    <p class="lead">Пользователи</p>
+</div>
+
+<div class="col-12">
+        <div class="container">
+            {% if user.is_staff %}
+            <div class="row text-center">
+                {% for user in user_list %}
+                <div class="col-3">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <h4 class="card-title pricing-card-title">{{ user.email }}</h4>
+                            <h4 class="card-title pricing-card-title">{{ user.is_active }}</h4>
+                            <a class="p-2 btn btn-outline-primary" href='{% url "mail:user_update" user.id %}'>Изменить</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

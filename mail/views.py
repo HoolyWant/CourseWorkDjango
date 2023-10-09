@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from blog.models import Blog
 from django.shortcuts import render
@@ -8,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from mail.forms import MessagesForm, MaillingForm, ClientForm
 from mail.models import MessagesForDistribution, MailDistributionSettings, Logs, Client
+from users.models import User
 
 
 class MessagesList(LoginRequiredMixin, ListView):  # просмотр списка рассылок
@@ -54,6 +56,18 @@ class MaillingDetail(DetailView):
 
 class MaillingList(LoginRequiredMixin, ListView):  # просмотр списка рассылок
     model = MailDistributionSettings
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+    def get_queryset(self):
+        queryset = MailDistributionSettings.objects.all()
+        if not self.request.user.is_staff and not self.request.user.is_superuser:
+            queryset = queryset.filter(user=self.request.user)
+
+        return queryset
 
 
 class MaillingDelete(DeleteView):
@@ -125,3 +139,18 @@ class ClientDelete(LoginRequiredMixin, DeleteView):
 class MessageDelete(LoginRequiredMixin, DeleteView):
     model = MessagesForDistribution
     success_url = reverse_lazy('mail:messages_list')
+
+
+class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = 'users/user_form.html'
+    success_url = reverse_lazy('mail:user_list.html')
+    permission_required = 'users.set_active'
+    fields = ['is_active', ]
+
+
+def users(request):
+    context = {
+        'user_list': User.objects.all()
+    }
+    return render(request, 'mail/user_list.html', context)

@@ -8,9 +8,11 @@
 
 <div class="col-12">
         <div class="container">
+            {% if not user.is_staff %}
             <div class="col-3 mb-5">
                 <a class="p-2 btn btn-primary" href='{% url "mail:client_create" %}'>Добавить клиента</a>
             </div>
+            {% endif %}
             <div class="row text-center">
                 {% for object in object_list %}
                 {% if object.user_id == user.id %}
@@ -20,8 +22,10 @@
                             <h4 class="card-title pricing-card-title">{{ object.full_name }}</h4>
                                 <li> {{ object.comment }}</li>
                                 <li> {{ object.contact_email }} </li>
+                                {% if not user.is_staff %}
                                 <a class="p-2 btn btn-outline-primary" href='{% url "mail:client_edit" object.id %}'>Изменить</a>
                                 <a class="p-2 btn btn-outline-danger" href='{% url "mail:client_confirm_delete" object.id %}'>Удалить</a>
+                                {% endif %}
                         </div>
                     </div>
                 </div>

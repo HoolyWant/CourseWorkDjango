@@ -15,5 +15,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     class Meta:
+        permissions = [
+            ('set_active', 'Can change user activity')
+        ]
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'

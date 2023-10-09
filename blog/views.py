@@ -1,10 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from blog.forms import BlogForm
 from blog.models import Blog
+from users.models import User
 
 
 class BlogCreate(LoginRequiredMixin, CreateView):
@@ -43,3 +45,22 @@ class BlogEdit(LoginRequiredMixin, UpdateView):
 class BlogDelete(LoginRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
+
+
+class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = 'users/user_form'
+    success_url = reverse_lazy('mail:user_list.html')
+    permission_required = 'users.set_active'
+    fields = ['is_active', ]
+
+
+def users(request):
+    context = {
+        'user_list': User.objects.all()
+    }
+    return render(request, 'mail/user_list.html', context)
+
+
+
+
